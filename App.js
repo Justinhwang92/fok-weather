@@ -16,17 +16,21 @@ export default class extends React.Component {
     // getting temperature
     const {
       data: {
-        main: { temp },
+        main: { temp, feels_like },
         weather,
+        name,
       },
     } = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=imperial`
     );
-    //console.log(weather);
+
+    //console.log(feels_like);
     this.setState({
       isLoading: false,
       condition: weather[0].main,
       temp,
+      feels_like,
+      name,
     });
   };
 
@@ -52,11 +56,16 @@ export default class extends React.Component {
   }
 
   render() {
-    const { isLoading, temp, condition } = this.state;
+    const { isLoading, temp, feels_like, condition, name } = this.state;
     return isLoading ? (
       <Loading />
     ) : (
-      <Weather temp={Math.round(temp)} condition={condition} />
+      <Weather
+        temp={Math.round(temp)}
+        condition={condition}
+        name={name}
+        feels_like={Math.round(feels_like)}
+      />
     );
   }
 }

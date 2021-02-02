@@ -65,20 +65,36 @@ const weatherOptions = {
   },
 };
 
-export default function Weather({ temp, condition }) {
+export default function Weather({ temp, condition, name, feels_like }) {
   return (
     <LinearGradient
       colors={weatherOptions[condition].gradient}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
+      <View style={styles.header}>
+        <MaterialCommunityIcons
+          size={30}
+          name="temperature-fahrenheit"
+          color="white"
+        />
+        <Text style={styles.slash}>/</Text>
+        <MaterialCommunityIcons
+          size={30}
+          name="temperature-celsius"
+          color="white"
+        />
+      </View>
+
       <View style={styles.halfContainer}>
+        <Text style={styles.city}>{name}</Text>
         <MaterialCommunityIcons
           size={96}
           name={weatherOptions[condition].iconName}
           color="white"
         />
         <Text style={styles.temp}>{temp}°</Text>
+        <Text style={styles.feelsLike}>feels like {feels_like}°</Text>
       </View>
       <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
         <Text style={styles.tilte}>{weatherOptions[condition].title}</Text>
@@ -92,6 +108,8 @@ export default function Weather({ temp, condition }) {
 
 Weather.propTypes = {
   temp: PropTypes.number.isRequired,
+  feels_like: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   condition: PropTypes.oneOf([
     "Thunderstorm",
     "Drizzle",
@@ -112,12 +130,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  header: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+    paddingTop: 50,
+    paddingRight: 20,
+  },
+  slash: {
+    fontSize: 25,
+    color: "white",
+  },
   halfContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   temp: {
+    fontSize: 42,
+    color: "white",
+  },
+  feelsLike: {
+    fontSize: 18,
+    color: "white",
+  },
+  city: {
     fontSize: 42,
     color: "white",
   },
