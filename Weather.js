@@ -15,7 +15,7 @@ const weatherOptions = {
     iconName: "weather-hail",
     gradient: ["#89F7FE", "#66A6FF"],
     title: "Drizzle",
-    subtitle: "Is like rain",
+    subtitle: "Is like rain, but is like mizzle",
   },
   Rain: {
     iconName: "weather-rainy",
