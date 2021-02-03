@@ -12,6 +12,27 @@ export default class extends React.Component {
     isLoading: true,
   };
 
+  getLocation = async () => {
+    try {
+      // asking permission
+      await Location.requestPermissionsAsync();
+
+      // getting the geo info
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync();
+
+      // Send to API and get weather
+      this.getWeather(latitude, longitude);
+    } catch (error) {
+      Alert.alert("Can't find you.", "So sad");
+    }
+  };
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
   getWeather = async (latitude, longitude) => {
     // getting temperature
     const {
@@ -33,27 +54,6 @@ export default class extends React.Component {
       name,
     });
   };
-
-  getLocation = async () => {
-    try {
-      // asking permission
-      await Location.requestPermissionsAsync();
-
-      // getting the geo info
-      const {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
-
-      // Send to API and get weather
-      this.getWeather(latitude, longitude);
-    } catch (error) {
-      Alert.alert("Can't find you.", "So sad");
-    }
-  };
-
-  componentDidMount() {
-    this.getLocation();
-  }
 
   render() {
     const { isLoading, temp, feels_like, condition, name } = this.state;

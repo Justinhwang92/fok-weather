@@ -77,12 +77,16 @@ export default function Weather({ temp, condition, name, feels_like }) {
           size={30}
           name="temperature-fahrenheit"
           color="white"
+          onPress={() => alert("pressed")}
         />
         <Text style={styles.slash}>/</Text>
         <MaterialCommunityIcons
           size={30}
           name="temperature-celsius"
           color="white"
+          onPress={() => {
+            temp = temp * (9 / 5) + 32;
+          }}
         />
       </View>
 
