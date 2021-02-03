@@ -65,7 +65,14 @@ const weatherOptions = {
   },
 };
 
-export default function Weather({ temp, condition, name, feels_like }) {
+export default function Weather({
+  temp,
+  condition,
+  name,
+  feels_like,
+  temp_min,
+  temp_max,
+}) {
   return (
     <LinearGradient
       colors={weatherOptions[condition].gradient}
@@ -84,8 +91,8 @@ export default function Weather({ temp, condition, name, feels_like }) {
           size={30}
           name="temperature-celsius"
           color="white"
-          onPress={() => {
-            temp = temp * (9 / 5) + 32;
+          onPress={(temp) => {
+            toCelsius(temp);
           }}
         />
       </View>
@@ -98,7 +105,9 @@ export default function Weather({ temp, condition, name, feels_like }) {
           color="white"
         />
         <Text style={styles.temp}>{temp}°</Text>
-        <Text style={styles.feelsLike}>feels like {feels_like}°</Text>
+        <Text style={styles.feelsLike}>
+          {temp_min}° / {temp_max}° feels like {feels_like}°
+        </Text>
       </View>
       <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
         <Text style={styles.tilte}>{weatherOptions[condition].title}</Text>
@@ -108,6 +117,14 @@ export default function Weather({ temp, condition, name, feels_like }) {
       </View>
     </LinearGradient>
   );
+}
+
+function toCelsius(fahrenheit) {
+  return ((fahrenheit - 32) * 5) / 9;
+}
+
+function toFahrenheit(celsius) {
+  return (celsius * 9) / 5 + 32;
 }
 
 Weather.propTypes = {

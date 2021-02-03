@@ -37,7 +37,7 @@ export default class extends React.Component {
     // getting temperature
     const {
       data: {
-        main: { temp, feels_like },
+        main: { temp, feels_like, temp_min, temp_max },
         weather,
         name,
       },
@@ -51,12 +51,23 @@ export default class extends React.Component {
       condition: weather[0].main,
       temp,
       feels_like,
+      temp_min,
+      temp_max,
       name,
     });
   };
 
   render() {
-    const { isLoading, temp, feels_like, condition, name } = this.state;
+    const {
+      isLoading,
+      temp,
+      feels_like,
+      temp_min,
+      temp_max,
+      condition,
+      name,
+    } = this.state;
+    console.log(temp_min, temp_max);
     return isLoading ? (
       <Loading />
     ) : (
@@ -65,6 +76,8 @@ export default class extends React.Component {
         condition={condition}
         name={name}
         feels_like={Math.round(feels_like)}
+        temp_min={Math.round(temp_min)}
+        temp_max={Math.round(temp_max)}
       />
     );
   }
