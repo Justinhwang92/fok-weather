@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import { View, Text, StyleSheet, StatusBar, TextInput } from "react-native";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -105,8 +105,8 @@ export default function Weather({
           color="white"
         />
         <Text style={styles.temp}>{temp}°</Text>
-        <Text style={styles.feelsLike}>
-          {temp_min}° / {temp_max}° feels like {feels_like}°
+        <Text style={styles.subTemp}>
+          L:{temp_min}° / H:{temp_max}° feels like {feels_like}°
         </Text>
       </View>
       <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
@@ -114,6 +114,13 @@ export default function Weather({
         <Text style={styles.subtitle}>
           {weatherOptions[condition].subtitle}
         </Text>
+      </View>
+      <View>
+        <TextInput
+          placeholder="Search other city or country..."
+          placeholderColor="#c4c3cb"
+          style={styles.searchTextInput}
+        />
       </View>
     </LinearGradient>
   );
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: "white",
   },
-  feelsLike: {
+  subTemp: {
     fontSize: 18,
     color: "white",
   },
@@ -188,6 +195,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "600",
     fontSize: 24,
+  },
+  searchTextInput: {
+    height: 43,
+    width: 350,
+    fontSize: 15,
+    borderRadius: 10,
+    borderColor: "#eaeaea",
+    backgroundColor: "#fafafa",
+    paddingLeft: 10,
+    marginBottom: 30,
   },
   // in case text is too long
   textContainer: {
